@@ -1,0 +1,14 @@
+// Criado por: Cleber Cisne Catão
+// Projeto: Desafio Java
+// Data: 19/11/2025
+
+/target/
+/.mvn/wrapper/maven-wrapper.jar
+/.idea/
+*.iml
+/.classpath
+/.project
+/.settings/
+/.vscode/
+.DS_Store
+/.env

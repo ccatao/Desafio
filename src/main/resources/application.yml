@@ -1,0 +1,20 @@
+// Criado por: Cleber Cisne Catão
+// Projeto: Desafio Java
+// Data: 19/11/2025
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/desafio}
+    username: ${SPRING_DATASOURCE_USERNAME:desafio}
+    password: ${SPRING_DATASOURCE_PASSWORD:desafio}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+jwt:
+  segredo: ${JWT_SECRET:change-me-please}
+  expiracao-minutos: 15
+
+server:
+  port: ${SERVER_PORT:8080}
