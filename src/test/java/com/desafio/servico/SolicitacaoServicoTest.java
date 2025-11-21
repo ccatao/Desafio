@@ -5,8 +5,8 @@
 package com.desafio.servico;
 
 import com.desafio.dto.SolicitacaoCriarDto;
-import com.desafio.modelo.entidade.Usuario;
-import com.desafio.repositorio.*;
+import com.desafio.model.entidade.Usuario;
+import com.desafio.repository.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -24,10 +24,10 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class SolicitacaoServicoTest {
 
-    @Mock private UsuarioRepositorio usuarioRepositorio;
-    @Mock private ModuloRepositorio moduloRepositorio;
-    @Mock private AcessoUsuarioRepositorio acessoUsuarioRepositorio;
-    @Mock private SolicitacaoRepositorio solicitacaoRepositorio;
+    @Mock private UsuarioRepository usuarioRepository;
+    @Mock private ModuloRepository moduloRepository;
+    @Mock private AcessoUsuarioRepository acessoUsuarioRepository;
+    @Mock private SolicitacaoRepository solicitacaoRepository;
 
     @InjectMocks private SolicitacaoServico servico;
 
@@ -38,8 +38,8 @@ class SolicitacaoServicoTest {
         usuario.setId(usuarioId);
         usuario.setDepartamento("OUTROS");
 
-        when(usuarioRepositorio.findById(eq(usuarioId))).thenReturn(Optional.of(usuario));
-        when(acessoUsuarioRepositorio.countByUsuarioIdAndAtivoTrue(eq(usuarioId))).thenReturn(5);
+        when(usuarioRepository.findById(eq(usuarioId))).thenReturn(Optional.of(usuario));
+        when(acessoUsuarioRepository.countByUsuarioIdAndAtivoTrue(eq(usuarioId))).thenReturn(5);
 
         SolicitacaoCriarDto dto = new SolicitacaoCriarDto();
         dto.setIdsModulos(List.of(UUID.randomUUID()));
@@ -50,8 +50,8 @@ class SolicitacaoServicoTest {
 
         assertTrue(resp.contains("Solicitação negada"));
 
-        ArgumentCaptor<com.desafio.modelo.entidade.SolicitacaoAcesso> captor = ArgumentCaptor.forClass(com.desafio.modelo.entidade.SolicitacaoAcesso.class);
-        verify(solicitacaoRepositorio, times(1)).save(captor.capture());
+        ArgumentCaptor<com.desafio.model.entidade.SolicitacaoAcesso> captor = ArgumentCaptor.forClass(com.desafio.model.entidade.SolicitacaoAcesso.class);
+        verify(solicitacaoRepository, times(1)).save(captor.capture());
         assertEquals("NEGADO", captor.getValue().getStatus());
     }
 }

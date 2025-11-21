@@ -1,8 +1,10 @@
-// Criado por: Cleber Cisne Catão
-// Projeto: Desafio Java
-// Data: 19/11/2025
+/*
+ * Criado por: Cleber Cisne Catão
+ * Data de criação: 19/11/2025
+ * Projeto: Desafio
+ */
 
-package com.desafio.modelo.entidade;
+package com.desafio.model.entidade;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

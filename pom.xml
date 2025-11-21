@@ -1,21 +1,20 @@
-// Criado por: Cleber Cisne Catão
-// Projeto: Desafio Java
-// Data: 19/11/2025
-
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- Criado por: Cleber Cisne Catão
+Data: 19/11/2025
+Projeto: Desafio Java -->
+<project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.desafio</groupId>
   <artifactId>desafio-java</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <properties>
-    <java.version>21</java.version>
-    <spring.boot.version>3.2.0</spring.boot.version>
-    <jacoco.version>0.8.8</jacoco.version>
-  </properties>
+    <properties>
+        <java.version>21</java.version>
+        <spring.boot.version>3.2.0</spring.boot.version>
+        <jacoco.version>0.8.8</jacoco.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+    </properties>
 
   <dependencyManagement>
     <dependencies>
@@ -48,16 +47,16 @@
       <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
     </dependency>
-    <dependency>
+ <!--   <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
-
+ -->
     <dependency>
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-      <version>2.1.0</version>
+      <version>2.6.0</version>
     </dependency>
 
     <dependency>
@@ -100,6 +99,7 @@
     <dependency>
       <groupId>org.instancio</groupId>
       <artifactId>instancio-core</artifactId>
+      <version>4.3.1</version>
       <scope>test</scope>
     </dependency>
 

@@ -2,7 +2,7 @@
 // Projeto: Desafio Java
 // Data: 19/11/2025
 
-package com.desafio.controlador;
+package com.desafio.controller;
 
 import com.desafio.dto.SolicitacaoCriarDto;
 import com.desafio.servico.SolicitacaoServico;
@@ -16,11 +16,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/solicitacoes")
-public class SolicitacaoControlador {
+public class SolicitacaoController {
 
     private final SolicitacaoServico solicitacaoServico;
 
-    public SolicitacaoControlador(SolicitacaoServico solicitacaoServico) {
+    public SolicitacaoController(SolicitacaoServico solicitacaoServico) {
         this.solicitacaoServico = solicitacaoServico;
     }
 

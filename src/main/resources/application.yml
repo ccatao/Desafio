@@ -5,8 +5,8 @@
 spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/desafio}
-    username: ${SPRING_DATASOURCE_USERNAME:desafio}
-    password: ${SPRING_DATASOURCE_PASSWORD:desafio}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:amanha}
   jpa:
     hibernate:
       ddl-auto: update

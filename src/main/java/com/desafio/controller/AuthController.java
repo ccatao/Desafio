@@ -2,10 +2,10 @@
 // Projeto: Desafio Java
 // Data: 19/11/2025
 
-package com.desafio.controlador;
+package com.desafio.controller;
 
-import com.desafio.modelo.entidade.Usuario;
-import com.desafio.repositorio.UsuarioRepositorio;
+import com.desafio.model.entidade.Usuario;
+import com.desafio.repository.UsuarioRepository;
 import com.desafio.seguranca.JwtTokenProvider;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,18 +13,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-public class AuthControlador {
+public class AuthController {
 
-    private final UsuarioRepositorio usuarioRepositorio;
+    private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthControlador(UsuarioRepositorio usuarioRepositorio, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
-        this.usuarioRepositorio = usuarioRepositorio;
+    public AuthController(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
+        this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
     }
@@ -33,7 +32,7 @@ public class AuthControlador {
     public ResponseEntity<?> login(@RequestBody Map<String, String> body) {
         String email = body.get("email");
         String senha = body.get("senha");
-        Optional<Usuario> opt = usuarioRepositorio.findByEmail(email);
+        Optional<Usuario> opt = usuarioRepository.findByEmail(email);
         if (opt.isEmpty()) return ResponseEntity.status(401).body(Map.of("error", "Usuário ou senha inválidos"));
         Usuario u = opt.get();
         if (!passwordEncoder.matches(senha, u.getSenhaHash())) return ResponseEntity.status(401).body(Map.of("error", "Usuário ou senha inválidos"));

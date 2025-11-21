@@ -5,8 +5,8 @@
 package com.desafio.servico;
 
 import com.desafio.dto.SolicitacaoCriarDto;
-import com.desafio.modelo.entidade.*;
-import com.desafio.repositorio.*;
+import com.desafio.model.entidade.*;
+import com.desafio.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,24 +17,24 @@ import java.util.stream.Collectors;
 @Service
 public class SolicitacaoServico {
 
-    private final UsuarioRepositorio usuarioRepositorio;
-    private final ModuloRepositorio moduloRepositorio;
-    private final AcessoUsuarioRepositorio acessoUsuarioRepositorio;
-    private final SolicitacaoRepositorio solicitacaoRepositorio;
+    private final UsuarioRepository usuarioRepository;
+    private final ModuloRepository moduloRepository;
+    private final AcessoUsuarioRepository acessoUsuarioRepository;
+    private final SolicitacaoRepository solicitacaoRepository;
 
-    public SolicitacaoServico(UsuarioRepositorio usuarioRepositorio,
-                              ModuloRepositorio moduloRepositorio,
-                              AcessoUsuarioRepositorio acessoUsuarioRepositorio,
-                              SolicitacaoRepositorio solicitacaoRepositorio) {
-        this.usuarioRepositorio = usuarioRepositorio;
-        this.moduloRepositorio = moduloRepositorio;
-        this.acessoUsuarioRepositorio = acessoUsuarioRepositorio;
-        this.solicitacaoRepositorio = solicitacaoRepositorio;
+    public SolicitacaoServico(UsuarioRepository usuarioRepository,
+                              ModuloRepository moduloRepository,
+                              AcessoUsuarioRepository acessoUsuarioRepository,
+                              SolicitacaoRepository solicitacaoRepository) {
+        this.usuarioRepository = usuarioRepository;
+        this.moduloRepository = moduloRepository;
+        this.acessoUsuarioRepository = acessoUsuarioRepository;
+        this.solicitacaoRepository = solicitacaoRepository;
     }
 
     @Transactional
     public String criarSolicitacao(UUID usuarioId, SolicitacaoCriarDto dto) {
-        Usuario usuario = usuarioRepositorio.findById(usuarioId).orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
 
         validarJustificativa(dto.getJustificativa());
 
@@ -44,7 +44,7 @@ public class SolicitacaoServico {
         if (dto.getIdsModulos().size() > 3) throw new IllegalArgumentException("Máximo de 3 módulos por solicitação");
 
         // Check module existence and activity
-        List<Modulo> modulos = moduloRepositorio.findAllById(dto.getIdsModulos());
+        List<Modulo> modulos = moduloRepository.findAllById(dto.getIdsModulos());
         if (modulos.size() != dto.getIdsModulos().size()) {
             throw new IllegalArgumentException("Algum módulo informado não existe ou não está disponível");
         }
@@ -52,12 +52,12 @@ public class SolicitacaoServico {
             if (!m.isAtivo()) {
                 return registrarNegacao(usuario, dto, "Módulo inativo: " + m.getNome());
             }
-            if (acessoUsuarioRepositorio.existsByUsuarioIdAndModuloIdAndAtivoTrue(usuario.getId(), m.getId())) {
+            if (acessoUsuarioRepository.existsByUsuarioIdAndModuloIdAndAtivoTrue(usuario.getId(), m.getId())) {
                 return registrarNegacao(usuario, dto, "Usuário já possui acesso ao módulo: " + m.getNome());
             }
         }
 
-        int acessosAtivos = acessoUsuarioRepositorio.countByUsuarioIdAndAtivoTrue(usuarioId);
+        int acessosAtivos = acessoUsuarioRepository.countByUsuarioIdAndAtivoTrue(usuarioId);
         int limite = usuario.getDepartamento() != null && usuario.getDepartamento().equalsIgnoreCase("TI") ? 10 : 5;
         if (acessosAtivos + modulos.size() > limite) {
             return registrarNegacao(usuario, dto, "Limite de módulos ativos atingido");
@@ -85,7 +85,7 @@ public class SolicitacaoServico {
         }).collect(Collectors.toList());
         aprov.setItens(itens);
 
-        solicitacaoRepositorio.save(aprov);
+        solicitacaoRepository.save(aprov);
 
         // Create user accesses
         for (Modulo m : modulos) {
@@ -96,7 +96,7 @@ public class SolicitacaoServico {
             acesso.setDataConcessao(LocalDateTime.now());
             acesso.setDataExpiracao(LocalDateTime.now().plusDays(180));
             acesso.setAtivo(true);
-            acessoUsuarioRepositorio.save(acesso);
+            acessoUsuarioRepository.save(acesso);
         }
 
         return String.format("Solicitação criada com sucesso! Protocolo: %s. Seus acessos já estão disponíveis!", aprov.getProtocolo());
@@ -113,7 +113,7 @@ public class SolicitacaoServico {
         neg.setDataSolicitacao(LocalDateTime.now());
         neg.setStatus("NEGADO");
         neg.setMotivoNegacao(motivo);
-        solicitacaoRepositorio.save(neg);
+        solicitacaoRepository.save(neg);
         return String.format("Solicitação negada. Motivo: %s", motivo);
     }
 

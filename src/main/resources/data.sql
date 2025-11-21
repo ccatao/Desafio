@@ -1,6 +1,6 @@
-// Criado por: Cleber Cisne Catão
-// Projeto: Desafio Java
-// Data: 19/11/2025
+-- Criado por: Cleber Cisne Catão
+-- Projeto: Desafio Java
+-- Data: 19/11/2025
 
 -- Usuários (substituir senha pelo hash gerado na aplicação)
 INSERT INTO usuario (id, nome, email, senha_hash, departamento, data_cadastro) VALUES

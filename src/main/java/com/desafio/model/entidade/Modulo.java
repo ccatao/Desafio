@@ -2,7 +2,7 @@
 // Projeto: Desafio Java
 // Data: 19/11/2025
 
-package com.desafio.modelo.entidade;
+package com.desafio.model.entidade;
 
 import jakarta.persistence.*;
 import java.util.UUID;
