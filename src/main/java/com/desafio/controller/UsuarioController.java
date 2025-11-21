@@ -8,6 +8,7 @@ package com.desafio.controller;
 
 import com.desafio.model.entidade.Usuario;
 import com.desafio.repository.UsuarioRepository;
+import java.util.UUID;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -33,13 +34,13 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public Usuario buscar(@PathVariable Long id) {
+    public Usuario buscar(@PathVariable UUID id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
     @PutMapping("/{id}")
-    public Usuario atualizar(@PathVariable Long id, @RequestBody Usuario usuarioAlterado) {
+    public Usuario atualizar(@PathVariable UUID id, @RequestBody Usuario usuarioAlterado) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
@@ -51,7 +52,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public void remover(@PathVariable Long id) {
+    public void remover(@PathVariable UUID id) {
         usuarioRepository.deleteById(id);
     }
 }

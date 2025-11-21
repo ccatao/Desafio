@@ -2,7 +2,7 @@
 // Projeto: Desafio Java
 // Data: 19/11/2025
 
-package com.desafio.servico;
+package com.desafio.service;
 
 import com.desafio.dto.SolicitacaoCriarDto;
 import com.desafio.model.entidade.*;

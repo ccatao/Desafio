@@ -5,7 +5,7 @@
 package com.desafio.controller;
 
 import com.desafio.dto.SolicitacaoCriarDto;
-import com.desafio.servico.SolicitacaoServico;
+import com.desafio.service.SolicitacaoServico;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

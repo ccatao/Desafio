@@ -32,6 +32,9 @@ public class Usuario {
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
 
+    @Column(name = "ativo")
+    private boolean ativo;
+
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
     public String getNome() { return nome; }
@@ -44,4 +47,6 @@ public class Usuario {
     public void setDepartamento(String departamento) { this.departamento = departamento; }
     public LocalDateTime getDataCadastro() { return dataCadastro; }
     public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
+    public void setAtivo(boolean ativo) { this.ativo = ativo; }
+    public boolean isAtivo() { return ativo; }
 }

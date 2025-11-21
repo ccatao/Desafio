@@ -30,12 +30,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> body) {
+
         String email = body.get("email");
         String senha = body.get("senha");
+
         Optional<Usuario> opt = usuarioRepository.findByEmail(email);
-        if (opt.isEmpty()) return ResponseEntity.status(401).body(Map.of("error", "Usuário ou senha inválidos"));
+
+        if (opt.isEmpty())
+            return ResponseEntity.status(401).body(Map.of("error", "Usuário ou senha inválidos"));
+
         Usuario u = opt.get();
-        if (!passwordEncoder.matches(senha, u.getSenhaHash())) return ResponseEntity.status(401).body(Map.of("error", "Usuário ou senha inválidos"));
+
+        if (!passwordEncoder.matches(senha, u.getSenhaHash()))
+            return ResponseEntity.status(401).body(Map.of("error", "Usuário ou senha inválidos"));
+
         String token = jwtTokenProvider.gerarToken(u.getId().toString(), u.getEmail());
         return ResponseEntity.ok(Map.of("accessToken", token));
     }
