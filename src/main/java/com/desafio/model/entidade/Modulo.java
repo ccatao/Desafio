@@ -1,17 +1,27 @@
-// Criado por: Cleber Cisne Catão
-// Projeto: Desafio Java
-// Data: 19/11/2025
+/*
+ Criado por: Cleber Cisne Catão
+ Projeto: Desafio
+ Data de criação: 19/11/2025
+*/
 
 package com.desafio.model.entidade;
 
 import jakarta.persistence.*;
+import lombok.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "modulo")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Modulo {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     @Column(nullable = false, unique = true)
@@ -21,14 +31,15 @@ public class Modulo {
     private String descricao;
 
     @Column(nullable = false)
-    private boolean ativo;
+    private boolean ativo = true;
 
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
-    public boolean isAtivo() { return ativo; }
-    public void setAtivo(boolean ativo) { this.ativo = ativo; }
+    @ElementCollection
+    @CollectionTable(name = "modulo_departamentos", joinColumns = @JoinColumn(name = "modulo_id"))
+    @Column(name = "departamento")
+    private List<String> departamentosPermitidos;
+
+    @ElementCollection
+    @CollectionTable(name = "modulo_incompativeis", joinColumns = @JoinColumn(name = "modulo_id"))
+    @Column(name = "incompativel")
+    private List<String> modulosIncompativeis;
 }

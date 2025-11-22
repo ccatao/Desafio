@@ -1,6 +1,6 @@
-// Criado por: Cleber Cisne Catão
-// Projeto: Desafio Java
-// Data: 19/11/2025
+# Criado por: Cleber Cisne Catão
+# Projeto: Desafio Java
+# Data: 19/11/2025
 
 version: '3.8'
 services:
@@ -8,8 +8,8 @@ services:
     image: postgres:17
     environment:
       POSTGRES_DB: desafio
-      POSTGRES_USER: desafio
-      POSTGRES_PASSWORD: desafio
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: amanha
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -19,8 +19,8 @@ services:
     build: .
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/desafio
-      SPRING_DATASOURCE_USERNAME: desafio
-      SPRING_DATASOURCE_PASSWORD: desafio
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: amanha
       SERVER_PORT: 8081
     depends_on:
       - postgres
@@ -31,8 +31,8 @@ services:
     build: .
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/desafio
-      SPRING_DATASOURCE_USERNAME: desafio
-      SPRING_DATASOURCE_PASSWORD: desafio
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: amanha
       SERVER_PORT: 8082
     depends_on:
       - postgres
@@ -43,8 +43,8 @@ services:
     build: .
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/desafio
-      SPRING_DATASOURCE_USERNAME: desafio
-      SPRING_DATASOURCE_PASSWORD: desafio
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: amanha
       SERVER_PORT: 8083
     depends_on:
       - postgres

@@ -1,20 +1,27 @@
 /*
- * Criado por: Cleber Cisne Catão
- * Data de criação: 19/11/2025
- * Projeto: Desafio
- */
+Criado por: Cleber Cisne Catão
+Projeto: Desafio
+Data de criação: 19/11/2025
+*/
 
 package com.desafio.model.entidade;
-
 import jakarta.persistence.*;
+import lombok.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+
 @Entity
 @Table(name = "usuario")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Usuario {
 
     @Id
+    @GeneratedValue
     private UUID id;
 
     @Column(nullable = false)
@@ -30,23 +37,8 @@ public class Usuario {
     private String departamento;
 
     @Column(name = "data_cadastro")
-    private LocalDateTime dataCadastro;
+    private LocalDateTime dataCadastro = LocalDateTime.now();
 
     @Column(name = "ativo")
-    private boolean ativo;
-
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-    public String getSenhaHash() { return senhaHash; }
-    public void setSenhaHash(String senhaHash) { this.senhaHash = senhaHash; }
-    public String getDepartamento() { return departamento; }
-    public void setDepartamento(String departamento) { this.departamento = departamento; }
-    public LocalDateTime getDataCadastro() { return dataCadastro; }
-    public void setDataCadastro(LocalDateTime dataCadastro) { this.dataCadastro = dataCadastro; }
-    public void setAtivo(boolean ativo) { this.ativo = ativo; }
-    public boolean isAtivo() { return ativo; }
+    private boolean ativo = true;
 }

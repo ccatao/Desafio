@@ -11,10 +11,5 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
-
-jwt:
-  segredo: ${JWT_SECRET:change-me-please}
-  expiracao-minutos: 15
-
-server:
-  port: ${SERVER_PORT:8080}
+    flyway:
+      locations: classpath:db/migration
