@@ -1,12 +1,17 @@
-<!-- Criado por: Cleber Cisne Catão
-Data: 19/11/2025
-Projeto: Desafio Java -->
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.0</version>
+        <relativePath/> <!-- necessário -->
+    </parent>
+
     <groupId>com.desafio</groupId>
     <artifactId>desafio-java</artifactId>
     <version>1.0.0</version>
@@ -14,12 +19,8 @@ Projeto: Desafio Java -->
 
     <properties>
         <java.version>21</java.version>
-        <spring.boot.version>3.2.0</spring.boot.version>
         <jacoco.version>0.8.12</jacoco.version>
         <flyway.version>10.20.1</flyway.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <instancio.version>5.5.1</instancio.version>
     </properties>
 
@@ -28,7 +29,7 @@ Projeto: Desafio Java -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>3.2.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -65,14 +66,14 @@ Projeto: Desafio Java -->
         </dependency>
 
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>${flyway.version}</version>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-database-postgresql</artifactId>
-            <version>${flyway.version}</version>
+            <artifactId>flyway-core</artifactId>
         </dependency>
 
         <dependency>
